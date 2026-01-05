@@ -1,77 +1,955 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krishi Mitra - Complete Farming Companion</title>
-    <meta name="description" content="Comprehensive farming solution with market prices, mandi rates, crop advisory, and direct buyer connections for farmers.">
+    <title>कृषि मित्र - किसानों का डिजिटल साथी | मंडी भाव, फसल सलाह, मौसम</title>
+    <meta name="description" content="कृषि मित्र - किसानों के लिए मुफ्त ऐप। मंडी भाव, फसल सलाह, मौसम जानकारी, सरकारी योजनाएं - सब एक जगह।">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="कृषि मित्र - किसानों का डिजिटल साथी">
+    <meta property="og:description" content="मंडी भाव, फसल सलाह, मौसम - किसान का सच्चा साथी">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --saffron: #FF9933;
+            --white: #FFFFFF;
+            --green: #138808;
+            --green-light: #84CC16;
+            --green-dark: #65A30D;
+            --green-pale: #ECFCCB;
+            --navy: #000080;
+            --blue-govt: #003DA5;
+            --brown: #8B4513;
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --gold: #FFD700;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
-        .hero { background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%); color: white; padding: 100px 20px; text-align: center; }
-        .hero h1 { font-size: 3.5em; margin-bottom: 20px; font-weight: 700; }
-        .hero p { font-size: 1.3em; margin-bottom: 30px; opacity: 0.95; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
-        .section-title { text-align: center; font-size: 2.5em; margin-bottom: 50px; color: #2d3748; }
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-        .feature-card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-        .feature-icon { font-size: 3em; margin-bottom: 20px; }
-        .feature-card h3 { font-size: 1.5em; margin-bottom: 15px; color: #84cc16; }
-        .screenshot-section { background: #f7fafc; padding: 80px 20px; text-align: center; }
-        footer { background: #2d3748; color: white; padding: 40px 20px; text-align: center; }
+
+        body {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-dark);
+            background: #FAFAFA;
+        }
+
+        /* Tricolor Strip */
+        .tricolor-strip {
+            height: 6px;
+            background: linear-gradient(to right, var(--saffron) 33.33%, var(--white) 33.33%, var(--white) 66.66%, var(--green) 66.66%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            padding: 15px 20px;
+            position: fixed;
+            top: 6px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 1.8em;
+        }
+
+        .logo-text {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--green-dark);
+        }
+
+        .free-badge {
+            background: var(--green);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 700;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--green-light) 0%, var(--green-dark) 100%);
+            padding: 120px 20px 60px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .farmer-icon {
+            font-size: 4.5em;
+            margin-bottom: 15px;
+            animation: wave 2s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .hero h1 {
+            font-size: 2.2em;
+            font-weight: 800;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-bottom: 25px;
+        }
+
+        /* Mandi Price Preview */
+        .mandi-preview {
+            max-width: 300px;
+            margin: 0 auto 25px;
+            background: white;
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .mandi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .mandi-title {
+            color: var(--green-dark);
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+
+        .mandi-date {
+            color: var(--text-light);
+            font-size: 0.75em;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .price-row:last-child {
+            border-bottom: none;
+        }
+
+        .crop-name {
+            font-size: 0.85em;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .price-value {
+            font-size: 0.9em;
+            font-weight: 700;
+            color: var(--green-dark);
+        }
+
+        .price-change {
+            font-size: 0.7em;
+            color: var(--green);
+        }
+
+        /* Download Button */
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            color: var(--green-dark);
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .download-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Stats */
+        .stats {
+            background: white;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .stat-number {
+            font-size: 1.6em;
+            font-weight: 800;
+            color: var(--green-dark);
+        }
+
+        .stat-label {
+            font-size: 0.8em;
+            color: var(--text-light);
+        }
+
+        /* Trust Section */
+        .trust-section {
+            background: var(--blue-govt);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .trust-items {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+        }
+
+        /* Section */
+        .section {
+            padding: 50px 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+        }
+
+        .section-title span {
+            color: var(--green-dark);
+        }
+
+        /* Features */
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            font-size: 2.2em;
+            flex-shrink: 0;
+        }
+
+        .feature-content h3 {
+            font-size: 1em;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .feature-content p {
+            font-size: 0.9em;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* Govt Schemes */
+        .schemes-section {
+            background: var(--green-pale);
+        }
+
+        .scheme-card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--green);
+        }
+
+        .scheme-card h3 {
+            font-size: 1em;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .scheme-card p {
+            font-size: 0.9em;
+            color: var(--text-light);
+        }
+
+        .scheme-benefit {
+            display: inline-block;
+            background: var(--green-pale);
+            color: var(--green-dark);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* How to Use */
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .step-card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--green-light), var(--green-dark));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-size: 1em;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 3px;
+        }
+
+        .step-content p {
+            font-size: 0.85em;
+            color: var(--text-light);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: white;
+        }
+
+        .testimonial-card {
+            background: #F8F9FA;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--green);
+        }
+
+        .testimonial-text {
+            font-size: 0.95em;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--green-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1em;
+        }
+
+        .author-info h4 {
+            font-size: 0.9em;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .author-info p {
+            font-size: 0.75em;
+            color: var(--text-light);
+        }
+
+        .stars {
+            color: #F59E0B;
+            margin-bottom: 8px;
+        }
+
+        /* Benefits */
+        .benefits-section {
+            background: linear-gradient(135deg, var(--green) 0%, #0D7A06 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .benefits-section h2 {
+            font-size: 1.4em;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .benefits-list {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.95em;
+        }
+
+        .benefit-item:last-child {
+            border-bottom: none;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--green-light) 0%, var(--green-dark) 100%);
+            padding: 50px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h2 {
+            font-size: 1.5em;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .cta-section p {
+            font-size: 1em;
+            margin-bottom: 25px;
+            opacity: 0.95;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #25D366;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+
+        /* Helpline */
+        .helpline {
+            background: var(--blue-govt);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .helpline-title {
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .helpline-number {
+            font-size: 1.8em;
+            font-weight: 800;
+            margin: 10px 0;
+        }
+
+        .helpline-label {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: #1F2937;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .footer-tagline {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.85em;
+        }
+
+        .footer-made {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8em;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Floating WhatsApp */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
     </style>
 </head>
 <body>
+    <!-- Tricolor Strip -->
+    <div class="tricolor-strip"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🌾</span>
+                <span class="logo-text">कृषि मित्र</span>
+            </div>
+            <span class="free-badge">100% मुफ्त</span>
+        </div>
+    </header>
+
+    <!-- Hero -->
     <section class="hero">
-        <h1>कृषि मित्र</h1>
-        <h2>Krishi Mitra</h2>
-        <p>Your Trusted Friend in Farming</p>
-        <p>From Sowing to Selling - Complete Agricultural Support</p>
+        <div class="hero-badge">
+            <span>⭐</span>
+            <span>25 लाख+ किसानों का भरोसा</span>
+        </div>
+
+        <div class="farmer-icon">👨‍🌾</div>
+
+        <h1>कृषि मित्र<br>किसान का सच्चा साथी</h1>
+
+        <p class="hero-subtitle">मंडी भाव, फसल सलाह, मौसम - सब एक ऐप में</p>
+
+        <!-- Mandi Price Preview -->
+        <div class="mandi-preview">
+            <div class="mandi-header">
+                <span class="mandi-title">📊 आज के मंडी भाव</span>
+                <span class="mandi-date">4 जनवरी 2026</span>
+            </div>
+            <div class="price-row">
+                <span class="crop-name">🌾 गेहूं</span>
+                <span class="price-value">₹2,450/क्विंटल <span class="price-change">↑ +50</span></span>
+            </div>
+            <div class="price-row">
+                <span class="crop-name">🌾 धान</span>
+                <span class="price-value">₹2,180/क्विंटल <span class="price-change">↑ +30</span></span>
+            </div>
+            <div class="price-row">
+                <span class="crop-name">🫘 चना</span>
+                <span class="price-value">₹5,200/क्विंटल <span class="price-change">↑ +80</span></span>
+            </div>
+        </div>
+
+        <a href="https://play.google.com/store" class="download-btn">
+            <span>📱</span>
+            <span>अभी डाउनलोड करें - मुफ्त</span>
+        </a>
     </section>
 
-    <div class="container">
-        <h2 class="section-title">Empowering Farmers with Knowledge</h2>
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">💹</div>
-                <h3>Live Mandi Prices</h3>
-                <p>Real-time crop prices from 7,000+ mandis across India. Make informed selling decisions.</p>
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat-item">
+            <div class="stat-number">25L+</div>
+            <div class="stat-label">किसान</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">⭐ 4.7</div>
+            <div class="stat-label">रेटिंग</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">7000+</div>
+            <div class="stat-label">मंडियां</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">फसलें</div>
+        </div>
+    </div>
+
+    <!-- Trust Section -->
+    <div class="trust-section">
+        <div class="trust-items">
+            <div class="trust-item">
+                <span>🏛️</span>
+                <span>सरकारी डेटा</span>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">🌾</div>
-                <h3>Crop Advisory</h3>
-                <p>Get personalized recommendations on what to grow based on soil, climate, and market demand.</p>
+            <div class="trust-item">
+                <span>📱</span>
+                <span>ऑफलाइन भी चलता है</span>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">🤝</div>
-                <h3>Direct Buyers</h3>
-                <p>Connect directly with buyers and eliminate middlemen. Get better prices for your produce.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🌡️</div>
-                <h3>Soil Testing</h3>
-                <p>Book soil testing services and get detailed reports with fertilizer recommendations.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💳</div>
-                <h3>Loan Assistant</h3>
-                <p>Apply for Kisan Credit Cards, crop loans, and government subsidies with step-by-step guidance.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🎓</div>
-                <h3>Farming Videos</h3>
-                <p>Watch expert tutorials on modern farming techniques, organic methods, and best practices.</p>
+            <div class="trust-item">
+                <span>🇮🇳</span>
+                <span>भारत में बना</span>
             </div>
         </div>
     </div>
 
-    <section class="screenshot-section">
-        <h2 class="section-title">किसान का सच्चा साथी</h2>
-        <p style="color: #666; font-size: 1.2em; max-width: 800px; margin: 0 auto;">Complete farming solution from field to market - all in one app</p>
+    <!-- Features -->
+    <section class="section">
+        <h2 class="section-title">ऐप में क्या <span>मिलेगा?</span></h2>
+
+        <div class="feature-list">
+            <div class="feature-card">
+                <span class="feature-icon">💹</span>
+                <div class="feature-content">
+                    <h3>मंडी भाव - रोज़ अपडेट</h3>
+                    <p>7000+ मंडियों के भाव देखें। कहां बेचें, कहां ज्यादा दाम - सब पता चलेगा।</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🌤️</span>
+                <div class="feature-content">
+                    <h3>मौसम की जानकारी</h3>
+                    <p>अगले 7 दिन का मौसम। बारिश होगी या धूप - समय पर पता चलेगा।</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🌱</span>
+                <div class="feature-content">
+                    <h3>फसल सलाहकार</h3>
+                    <p>कौन सी फसल लगाएं? कितना खाद डालें? एक्सपर्ट की सलाह मुफ्त।</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🤝</span>
+                <div class="feature-content">
+                    <h3>सीधे खरीदार से जुड़ें</h3>
+                    <p>बिचौलिए हटाओ, सीधे खरीदार को बेचो। ज्यादा पैसे कमाओ।</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🧪</span>
+                <div class="feature-content">
+                    <h3>मिट्टी जांच</h3>
+                    <p>अपनी मिट्टी की जांच करवाएं। जानें कौन सा खाद सही रहेगा।</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🎥</span>
+                <div class="feature-content">
+                    <h3>खेती के वीडियो</h3>
+                    <p>नई तकनीक, जैविक खेती, कीट नियंत्रण - सीखें वीडियो से।</p>
+                </div>
+            </div>
+        </div>
     </section>
 
+    <!-- Government Schemes -->
+    <section class="section schemes-section">
+        <h2 class="section-title">सरकारी <span>योजनाएं</span></h2>
+
+        <div class="scheme-card">
+            <h3>🏦 किसान क्रेडिट कार्ड (KCC)</h3>
+            <p>4% ब्याज पर लोन। खेती के लिए आसान कर्ज।</p>
+            <span class="scheme-benefit">₹3 लाख तक लोन</span>
+        </div>
+
+        <div class="scheme-card">
+            <h3>💰 PM किसान सम्मान निधि</h3>
+            <p>हर साल ₹6,000 सीधे खाते में।</p>
+            <span class="scheme-benefit">₹2,000 हर 4 महीने</span>
+        </div>
+
+        <div class="scheme-card">
+            <h3>🛡️ फसल बीमा योजना</h3>
+            <p>फसल खराब हो तो सरकार देगी मुआवजा।</p>
+            <span class="scheme-benefit">कम प्रीमियम</span>
+        </div>
+
+        <div class="scheme-card">
+            <h3>🚜 सब्सिडी पर कृषि यंत्र</h3>
+            <p>ट्रैक्टर, पंप, स्प्रेयर - सब्सिडी के साथ खरीदें।</p>
+            <span class="scheme-benefit">50% तक सब्सिडी</span>
+        </div>
+    </section>
+
+    <!-- How to Use -->
+    <section class="section">
+        <h2 class="section-title">कैसे <span>इस्तेमाल करें?</span></h2>
+
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>ऐप डाउनलोड करें</h3>
+                    <p>Play Store से मुफ्त डाउनलोड</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>अपनी जगह चुनें</h3>
+                    <p>जिला और ब्लॉक सेलेक्ट करें</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>फसल चुनें</h3>
+                    <p>आप कौन सी फसल उगाते हैं बताएं</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>जानकारी पाएं</h3>
+                    <p>मंडी भाव, मौसम, सलाह - सब देखें</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section testimonials">
+        <h2 class="section-title">किसानों की <span>राय</span></h2>
+
+        <div class="testimonial-card">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p class="testimonial-text">"पहले बिचौलिए को बेचता था, अब सीधे खरीदार मिल जाता है। ₹200 ज्यादा मिलता है हर क्विंटल पर।"</p>
+            <div class="testimonial-author">
+                <div class="author-avatar">र</div>
+                <div class="author-info">
+                    <h4>रामप्रसाद यादव</h4>
+                    <p>किसान, वाराणसी</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p class="testimonial-text">"मौसम की जानकारी समय पर मिल जाती है। बारिश से पहले फसल कट लेता हूं।"</p>
+            <div class="testimonial-author">
+                <div class="author-avatar">स</div>
+                <div class="author-info">
+                    <h4>सुखदेव सिंह</h4>
+                    <p>किसान, पंजाब</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p class="testimonial-text">"PM किसान के पैसे इसी ऐप से चेक करता हूं। सरकारी योजनाओं की जानकारी भी मिलती है।"</p>
+            <div class="testimonial-author">
+                <div class="author-avatar">म</div>
+                <div class="author-info">
+                    <h4>मोहनलाल पटेल</h4>
+                    <p>किसान, मध्य प्रदेश</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="benefits-section">
+        <h2>कृषि मित्र के फायदे</h2>
+        <div class="benefits-list">
+            <div class="benefit-item">
+                <span>✅</span>
+                <span>रोज़ मंडी भाव अपडेट</span>
+            </div>
+            <div class="benefit-item">
+                <span>✅</span>
+                <span>मौसम की सही जानकारी</span>
+            </div>
+            <div class="benefit-item">
+                <span>✅</span>
+                <span>सीधे खरीदार से संपर्क</span>
+            </div>
+            <div class="benefit-item">
+                <span>✅</span>
+                <span>सरकारी योजनाओं की जानकारी</span>
+            </div>
+            <div class="benefit-item">
+                <span>✅</span>
+                <span>हिंदी में सब कुछ - आसान</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>आज ही डाउनलोड करें!</h2>
+        <p>25 लाख+ किसान पहले से इस्तेमाल कर रहे हैं</p>
+
+        <a href="https://play.google.com/store" class="download-btn">
+            <span>📱</span>
+            <span>अभी डाउनलोड करें - मुफ्त</span>
+        </a>
+
+        <br>
+
+        <a href="https://wa.me/919876543210?text=कृषि मित्र ऐप के बारे में जानना है" class="whatsapp-btn">
+            <span>💬</span>
+            <span>WhatsApp पर पूछें</span>
+        </a>
+    </section>
+
+    <!-- Helpline -->
+    <div class="helpline">
+        <p class="helpline-title">किसान कॉल सेंटर</p>
+        <p class="helpline-number">📞 1800-180-1551</p>
+        <p class="helpline-label">(टोल फ्री, 24x7)</p>
+    </div>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Krishi Mitra. Supporting India's Farmers Every Step of the Way.</p>
+        <div class="footer-logo">🌾 कृषि मित्र</div>
+        <p class="footer-tagline">किसान का सच्चा साथी</p>
+
+        <div class="footer-links">
+            <a href="privacy.html">प्राइवेसी पॉलिसी</a>
+            <a href="terms.html">नियम व शर्तें</a>
+            <a href="support.html">सहायता</a>
+        </div>
+
+        <div class="footer-made">
+            🇮🇳 भारत में बना | © 2026 कृषि मित्र
+        </div>
     </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/919876543210?text=कृषि मित्र ऐप के बारे में जानना है" class="floating-whatsapp" aria-label="WhatsApp पर संपर्क करें">
+        💬
+    </a>
 </body>
 </html>
