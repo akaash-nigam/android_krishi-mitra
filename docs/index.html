@@ -621,6 +621,79 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
+
+        /* Krishi Infographic Section */
+        .krishi-infographic-section {
+            background: linear-gradient(135deg, #ECFCCB 0%, #D9F99D 100%);
+            padding: 60px 0;
+            width: 100%;
+        }
+        .krishi-infographic-container {
+            max-width: 1400px;
+            width: 95%;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .krishi-infographic-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .krishi-infographic-content h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--green-dark);
+            margin-bottom: 16px;
+        }
+        .krishi-infographic-content p {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        .krishi-feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .krishi-feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(101, 163, 13, 0.3);
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+        .krishi-feature-list li:last-child {
+            border-bottom: none;
+        }
+        .krishi-feature-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(132, 204, 22, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .krishi-infographic-visual img {
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border: 3px solid var(--green-light);
+        }
+        @media (max-width: 900px) {
+            .krishi-infographic-grid {
+                grid-template-columns: 1fr;
+            }
+            .krishi-infographic-content h2 {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -714,6 +787,39 @@
             </div>
         </div>
     </div>
+
+    <!-- Krishi Infographic -->
+    <section class="krishi-infographic-section">
+        <div class="krishi-infographic-container">
+            <div class="krishi-infographic-grid">
+                <div class="krishi-infographic-content">
+                    <h2>🌾 किसान का सच्चा साथी</h2>
+                    <p>कृषि मित्र में मंडी भाव, मौसम, फसल सलाह और सरकारी योजनाएं - सब एक जगह। 25 लाख+ किसानों का भरोसा।</p>
+                    <ul class="krishi-feature-list">
+                        <li>
+                            <span class="krishi-feature-icon">💹</span>
+                            <span>मंडी भाव - 7000+ मंडियों के रोज़ भाव</span>
+                        </li>
+                        <li>
+                            <span class="krishi-feature-icon">🌤️</span>
+                            <span>मौसम जानकारी - 7 दिन का पूर्वानुमान</span>
+                        </li>
+                        <li>
+                            <span class="krishi-feature-icon">🌱</span>
+                            <span>फसल सलाह - एक्सपर्ट की मुफ्त सलाह</span>
+                        </li>
+                        <li>
+                            <span class="krishi-feature-icon">🏛️</span>
+                            <span>सरकारी योजनाएं - PM किसान, KCC, बीमा</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="krishi-infographic-visual">
+                    <img src="infographic-krishi.png" alt="कृषि मित्र किसान सेवाएं">
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Features -->
     <section class="section">
